@@ -1,0 +1,64 @@
+Airplane Mode Changer
+
+activity_main.xml
+remove <Textview>
+
+
+mainactivity.kt
+
+import this 2
+
+import android.content.Intent
+import android.content.IntentFilter
+
+overrid fun ke upar
+lateinit var receiver: AirplaneModeChangeReceiver
+
+
+setcontentview ke niche
+
+receiver = AirplaneModeChangeReceiver()
+        IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED).also {
+            registerReceiver(receiver, it)
+
+
+
+
+   }
+} ke baad
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(receiver)
+   }
+}
+
+
+
+AirplaneModeChangeReceiver.kt
+
+
+packahe ke niche
+
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
+
+
+
+class AirplaneModeChangeReceiver ke baad ye :Broadcastreceiver dena hai
+
+:BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        val isAirplaneModeEnabled = intent?.getBooleanExtra("state", false)
+            ?: return
+        if (isAirplaneModeEnabled) {
+            Toast.makeText(context, "Airplane Mode Enabled",
+                Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(context, "Airplane Mode Disabled",
+                Toast.LENGTH_LONG).show()
+        }
+    }
+}
